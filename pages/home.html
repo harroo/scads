@@ -4,12 +4,19 @@
 		<title>Scads Home</title>
 	</head>
 	<body style="background-color:Black;color:White;">
-		<form>
+		<form id="form1">
 			Student Name:
-			<input>
-				<br><br>
-				Course:
-			</input>
+			<input type="text"name="username"size="32">
+			<br><br>
+			Course:
+			<input type="text"name="message"size="32">
+			<input type="button"onclick="SubmitForm()"value="Submit Form">
 		</form>
+		<script>
+			function SubmitForm () {
+				document.getElementById("form1").submit();
+				document.getElementById("form1").reset();
+			}
+		</script>
 	</body>
 </html>

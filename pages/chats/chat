@@ -1,0 +1,13 @@
+<!DOCTYPE=HTML>
+<html>
+	<head>
+		<title>chat | Scads</title>
+	</head>
+	<body>
+        <br><br><br><br>
+        <form>
+            <input type="text"name="message"size="1024">
+            <input button="">
+        </form>
+	</body>
+</html>
