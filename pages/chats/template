@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>chat | Scads</title>
+	</head>
+	<body 
+		onload="onLoad();focusMessageField()"
+		style="background-color:Black;color:White;"
+	/>
+        <br><br>
+        <p>Beggining of 'chat'</p><br>
+        <br><br>
+        <form id="sendForm">
+            <input 
+            	style="background-color:Black;color:White;"
+            	type="text"
+            	name="username"
+            	size="32"
+            />
+            <br>
+            <!input type="text"name="message"size="128">
+            <input
+				 onKeyPress="onKeyPress(event)"
+				 style="background-color:Black;color:White;"
+				 type="text"
+				 name="message"
+				 size="1024"
+			 />
+            <input 
+            	style="background-color:Black;color:White;"
+            	type="button"
+            	onclick="sendFunc()"
+            	value="Send"
+            />
+        </form>
+        <script>
+        	function sendFunc () {
+        		localStorage.setItem(
+        			"usernameCache", 
+        			document.forms['sendForm'].elements['username'].value
+        		);
+        		if (document.forms['sendForm'].elements['message'].value.length == 0)
+        			return;
+        		document.forms['sendForm'].submit();
+        		document.forms['sendForm'].reset();
+        	}
+        	function onLoad () {
+        		document.forms['sendForm'].elements['username'].value 
+        			= localStorage.getItem("usernameCache");
+        	}
+        	function onKeyPress (e) {
+        		if (e.keyCode == 13) {
+        			sendFunc();
+        		}
+        	}
+        	function focusMessageField () {
+	        	document.forms['sendForm'].elements['message'].focus();
+        	}
+        </script>
+	</body>
+</html>

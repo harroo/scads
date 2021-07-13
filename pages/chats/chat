@@ -1,13 +1,115 @@
-<!DOCTYPE=HTML>
+<!DOCTYPE html>
+<meta charset="UTF-8">
 <html>
 	<head>
 		<title>chat | Scads</title>
 	</head>
-	<body>
-        <br><br><br><br>
-        <form>
-            <input type="text"name="message"size="1024">
-            <input button="">
+	<body 
+		onload="onLoad();focusMessageField()"
+		style="background-color:Black;color:White;"
+	/>
+        <br><br>
+<!msg>[7/12/2021 10:44:59 PM]:<Tahlia>: I don't know where it went.<br>
+<!msg>[7/12/2021 10:45:05 PM]:<Tahlia>: Oh my, where'd mine go!!<br>
+<!msg>[7/12/2021 10:47:31 PM]:<Tahlia>: Fixed it.<br>
+<!msg>[7/12/2021 10:47:34 PM]:<Tahlia>: Oh wait..<br>
+<!msg>[7/12/2021 10:47:49 PM]-[Tahlia]: It's a touchy subject.<br>
+<!msg>[7/12/2021 10:47:59 PM]-[harroo]: yeyeye<br>
+<!msg>[7/12/2021 10:48:17 PM]-[harroo]: yeyeye<br>
+<!msg>[7/12/2021 10:49:35 PM]-[harroo]: bird and bee<br>
+<!msg>[7/12/2021 10:49:47 PM]-[harroo]: go agen man come on<br>
+<!msg>[7/12/2021 10:50:09 PM]-[harroo]: ey<br>
+<!msg>[7/12/2021 10:52:21 PM]-[harroo]: ehlp<br>
+<!msg>[7/12/2021 10:52:37 PM]-[Tahlia]: Testing again.<br>
+<!msg>[7/12/2021 10:52:42 PM]-[harroo]: oh hi tahlia<br>
+<!msg>[7/12/2021 10:52:48 PM]-[Tahlia]: Hiiii!!!<br>
+<!msg>[7/12/2021 10:52:53 PM]-[Tahlia]: How are you???<br>
+<!msg>[7/12/2021 10:54:23 PM]-[harroo]: im good, how r u gerl?<br>
+<!msg>[7/12/2021 10:54:40 PM]-[Tahlia]: I'm okay! I'm enjoying sitting next to you<br>
+<!msg>[7/12/2021 10:54:48 PM]-[Tahlia]: I always sound so corny.<br>
+<!msg>[7/12/2021 10:54:52 PM]-[Tahlia]: When I text.<br>
+<!msg>[7/12/2021 10:54:57 PM]-[harroo]: u rekon?<br>
+<!msg>[7/12/2021 10:55:00 PM]-[Tahlia]: Yes.<br>
+<!msg>[7/12/2021 10:55:09 PM]-[harroo]: oh lo hahahahahahahahhahahahahahahaha<br>
+<!msg>[7/12/2021 10:55:17 PM]-[Tahlia]: "lo"<br>
+<!msg>[7/12/2021 10:55:19 PM]-[Tahlia]: ?<br>
+<!msg>[7/12/2021 10:58:01 PM]-[Tahlia]: Hello?<br>
+<!msg>[7/12/2021 10:58:21 PM]-[harroo]: hi<br>
+<!msg>[7/12/2021 10:58:24 PM]-[harroo]: ur next to me gerl<br>
+<!msg>[7/12/2021 10:58:26 PM]-[harroo]: yk this<br>
+<!msg>[7/12/2021 10:58:28 PM]-[Tahlia]: Yes.<br>
+<!msg>[7/12/2021 10:58:47 PM]-[harroo]: haahahahahha i love u so much hahahahahahhhahahhhhhhhhhh<br>
+<!msg>[7/12/2021 10:58:56 PM]-[Tahlia]: :)<br>
+<!msg>[7/12/2021 10:59:31 PM]-[Tahlia]: Now it should work.<br>
+<!msg>[7/12/2021 11:13:22 PM]-[harroo]: testing to see if its good or it bad idk u tel me man dude <br>
+<!msg>[7/12/2021 11:13:24 PM]-[harroo]: it good<br>
+<!msg>[7/12/2021 11:13:28 PM]-[harroo]: now we need to <br>
+<!msg>[7/12/2021 11:13:29 PM]-[harroo]: bildo<br>
+<!msg>[7/12/2021 11:13:30 PM]-[harroo]: thing<br>
+<!msg>[7/12/2021 11:13:36 PM]-[harroo]: implement logsand bildo interface<br>
+<!msg>[7/12/2021 11:40:38 PM]-[Charlotte]: hi hi<br>
+<!msg>[7/12/2021 11:45:57 PM]-[Charlotte]: hi man<br>
+<!msg>[7/12/2021 11:50:11 PM]-[harroo]: hell?<br>
+<!msg>[7/12/2021 11:50:16 PM]-[harroo]: hello?<br>
+<!msg>[7/12/2021 11:50:25 PM]-[harroo]: who are you on my fugen spot hot?<br>
+        <br><br>
+        <form id="sendForm">
+            <input 
+            	style="background-color:Black;color:White;"
+            	type="text"
+            	name="username"
+            	size="32"
+            />
+            <br>
+            <!input type="text"name="message"size="128">
+            <input
+				 onKeyPress="onKeyPress(event)"
+				 style="background-color:Black;color:White;"
+				 type="text"
+				 name="message"
+				 size="1024"
+			 />
+            <input 
+            	style="background-color:Black;color:White;"
+            	type="button"
+            	onclick="sendFunc()"
+            	value="Send"
+            />
         </form>
+        <script>
+        	function sendFunc () {
+        		localStorage.setItem(
+        			"usernameCache", 
+        			document.forms['sendForm'].elements['username'].value
+        		);
+        		if (document.forms['sendForm'].elements['message'].value.length == 0)
+        			return;
+        		document.forms['sendForm'].submit();
+        		localStorage.setItem("messageCache", "");
+        	}
+        	function onLoad () {
+        		document.forms['sendForm'].elements['username'].value 
+        			= localStorage.getItem("usernameCache");
+        		document.forms['sendForm'].elements['message'].value 
+        			= localStorage.getItem("messageCache");
+        		window.history.replaceState({}, document.title, "/" + "chats/chat");
+        		setTimeout("refresh()", 4200);
+        	}
+        	function onKeyPress (e) {
+        		if (e.keyCode == 13) {
+        			sendFunc();
+        		}
+        	}
+        	function focusMessageField () {
+	        	document.forms['sendForm'].elements['message'].focus();
+        	}
+        	function refresh () {
+        		localStorage.setItem(
+        			"messageCache", 
+        			document.forms['sendForm'].elements['message'].value
+        		);
+        		window.location = window.location.href.split("?")[0];
+        	}
+        </script>
 	</body>
 </html>

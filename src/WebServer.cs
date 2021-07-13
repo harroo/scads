@@ -33,13 +33,17 @@ namespace Scads {
 			while (true) {
 
 				TcpClient client = listener.AcceptTcpClient();
-				new Thread(()=>HandleClient(client)).Start();
+				//new Thread(()=>HandleClient(client)).Start();
+				HandleClient(client);
 			}
 		}
 
 		public static void HandleClient (TcpClient client) {
 
-			Console.WriteLine("Connection Received: " + client.Client.RemoteEndPoint.ToString());
+			Console.WriteLine(
+				"Connection Received: " + 
+				client.Client.RemoteEndPoint.ToString()
+			);
 
 			byte[] recvData = new byte[4096];
 			client.GetStream().Read(recvData, 0, recvData.Length);
@@ -53,7 +57,10 @@ namespace Scads {
 				client.GetStream().Write(sendData, 0, sendData.Length);
 			}
 
-			Console.WriteLine("Successfully Handled and Dropped: " + client.Client.RemoteEndPoint.ToString());
+			Console.WriteLine(
+				"Successfully Handled and Dropped: " +
+				client.Client.RemoteEndPoint.ToString()
+			);
 
 			client.GetStream().Close();
 			client.Close();
@@ -68,10 +75,10 @@ namespace Scads {
 				page = values[0];
 
 				bool chat = false;
-				if (page == "chat.html")
-					chat = ProcessChatArgs(values[1]);
+				if (page == "/chats/chat")
+					chat = ProcessChatArgs(page, values[1]);
 
-				if (chat) return Chat.ReadChat();
+				if (chat) return Chat.ReadChat(page);
 			}
 
 			Console.WriteLine("Request for: " + page);
@@ -94,23 +101,25 @@ namespace Scads {
 			}
 		}
 
-		public static bool ProcessChatArgs (string chatArgs) {
+		public static bool ProcessChatArgs (string page, string chatArgs) {
 
 			Console.WriteLine("Chat Args Read: " + chatArgs);
 
 			if (!chatArgs.Contains('&')) return false;
 			if (!chatArgs.Contains('=')) return false;
+			
+			chatArgs = chatArgs.Replace('+', ' ');
 
 			string[] args = chatArgs.Split('&');
-			string[] arg1 = args.Split('=');
-			string[] arg2 = args.Split('=');
+			string[] arg1 = args[0].Split('=');
+			string[] arg2 = args[1].Split('=');
 
 			string username, message;
 
 			if (arg1[0] == "username") username = arg1[1]; else return false;
-			if (arg2[0] == "message") username = arg2[1]; else return false;
+			if (arg2[0] == "message") message = arg2[1]; else return false;
 
-			Chat.Append(username, message);
+			Chat.Append(page, username, message);
 			
 			return true;
 		}
