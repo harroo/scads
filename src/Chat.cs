@@ -25,10 +25,8 @@ namespace Scads {
         	
         	message = message.Replace('<', '(');
         	message = message.Replace('>', ')');
-        
-        	Console.WriteLine("Append for: " + chat);
-        	Console.WriteLine("name: " + username);
-        	Console.WriteLine("mesg: " + message);
+        	
+        	Analytics.LogChat(chat, message);
 
             mutex.WaitOne(); try {
 
@@ -81,8 +79,6 @@ namespace Scads {
         }
         
         public static byte[] ReadChat (string chat) {
-        
-        	Console.WriteLine("Get for: " + chat);
         	
         	byte[] chatData = new byte[0];
         	

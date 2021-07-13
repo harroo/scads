@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta charset="UTF-8">
 <html>
 	<head>
 		<title>chat | Scads</title>
@@ -8,7 +9,7 @@
 		style="background-color:Black;color:White;"
 	/>
         <br><br>
-        <p>Beggining of 'chat'</p><br>
+<!msg>[7/12/2021 10:47:59 PM]-[System]: Chat Started.<br>
         <br><br>
         <form id="sendForm">
             <input 
@@ -42,11 +43,15 @@
         		if (document.forms['sendForm'].elements['message'].value.length == 0)
         			return;
         		document.forms['sendForm'].submit();
-        		document.forms['sendForm'].reset();
+        		localStorage.setItem("messageCache", "");
         	}
         	function onLoad () {
         		document.forms['sendForm'].elements['username'].value 
         			= localStorage.getItem("usernameCache");
+        		document.forms['sendForm'].elements['message'].value 
+        			= localStorage.getItem("messageCache");
+        		window.history.replaceState({}, document.title, "/" + "chats/chat");
+        		setTimeout("refresh()", 4200);
         	}
         	function onKeyPress (e) {
         		if (e.keyCode == 13) {
@@ -55,6 +60,13 @@
         	}
         	function focusMessageField () {
 	        	document.forms['sendForm'].elements['message'].focus();
+        	}
+        	function refresh () {
+        		localStorage.setItem(
+        			"messageCache", 
+        			document.forms['sendForm'].elements['message'].value
+        		);
+        		window.location = window.location.href.split("?")[0];
         	}
         </script>
 	</body>

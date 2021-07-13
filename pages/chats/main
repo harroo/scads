@@ -2,22 +2,13 @@
 <meta charset="UTF-8">
 <html>
 	<head>
-		<title>chat | Scads</title>
+		<title>main | Scads</title>
 	</head>
 	<body 
 		onload="onLoad();focusMessageField()"
 		style="background-color:Black;color:White;"
 	/>
         <br><br>
-<!msg>[7/12/2021 10:44:59 PM]:<Tahlia>: I don't know where it went.<br>
-<!msg>[7/12/2021 10:45:05 PM]:<Tahlia>: Oh my, where'd mine go!!<br>
-<!msg>[7/12/2021 10:47:31 PM]:<Tahlia>: Fixed it.<br>
-<!msg>[7/12/2021 10:47:34 PM]:<Tahlia>: Oh wait..<br>
-<!msg>[7/12/2021 10:47:49 PM]-[Tahlia]: It's a touchy subject.<br>
-<!msg>[7/12/2021 10:47:59 PM]-[harroo]: yeyeye<br>
-<!msg>[7/12/2021 10:48:17 PM]-[harroo]: yeyeye<br>
-<!msg>[7/12/2021 10:49:35 PM]-[harroo]: bird and bee<br>
-<!msg>[7/12/2021 10:49:47 PM]-[harroo]: go agen man come on<br>
 <!msg>[7/12/2021 10:50:09 PM]-[harroo]: ey<br>
 <!msg>[7/12/2021 10:52:21 PM]-[harroo]: ehlp<br>
 <!msg>[7/12/2021 10:52:37 PM]-[Tahlia]: Testing again.<br>
@@ -52,6 +43,15 @@
 <!msg>[7/12/2021 11:50:11 PM]-[harroo]: hell?<br>
 <!msg>[7/12/2021 11:50:16 PM]-[harroo]: hello?<br>
 <!msg>[7/12/2021 11:50:25 PM]-[harroo]: who are you on my fugen spot hot?<br>
+<!msg>[7/13/2021 12:09:26 AM]-[harroo]: who like ciken nugerts?<br>
+<!msg>[7/13/2021 12:09:36 AM]-[harroo]: lmao<br>
+<!msg>[7/13/2021 12:09:37 AM]-[harroo]: gay<br>
+<!msg>[7/13/2021 12:10:34 AM]-[harroo]: hello<br>
+<!msg>[7/13/2021 12:10:36 AM]-[harroo]: anal<br>
+<!msg>[7/13/2021 12:44:15 AM]-[harroo]: anal<br>
+<!msg>[7/13/2021 12:44:17 AM]-[harroo]: lmao<br>
+<!msg>[7/13/2021 12:44:24 AM]-[harroo]: so its like normal or?<br>
+<!msg>[7/13/2021 12:44:27 AM]-[harroo]: nah idk hahahahahha<br>
         <br><br>
         <form id="sendForm">
             <input 
@@ -92,7 +92,7 @@
         			= localStorage.getItem("usernameCache");
         		document.forms['sendForm'].elements['message'].value 
         			= localStorage.getItem("messageCache");
-        		window.history.replaceState({}, document.title, "/" + "chats/chat");
+        		window.history.replaceState({}, document.title, "/" + "chats/main");
         		setTimeout("refresh()", 4200);
         	}
         	function onKeyPress (e) {

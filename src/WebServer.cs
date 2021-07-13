@@ -49,7 +49,11 @@ namespace Scads {
 			client.GetStream().Read(recvData, 0, recvData.Length);
 			string requestInfo = Encoding.ASCII.GetString(recvData);
 
-			Console.WriteLine("Read: \n" + requestInfo);
+			//Console.WriteLine("Read: \n" + requestInfo);
+			Analytics.LogClient(
+				client.Client.RemoteEndPoint.ToString().Split(':')[0],
+				requestInfo
+			);
 
 			if (requestInfo.Contains(' ')) {
 
