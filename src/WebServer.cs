@@ -16,6 +16,11 @@ namespace Scads {
 
 		public static void Start () {
 
+			new Thread(()=>Initialize()).Start();
+		}
+
+		private static void Initialize () {
+
 			TcpListener listener = new TcpListener(IPAddress.Any, 80);
 
 			try {
@@ -38,18 +43,20 @@ namespace Scads {
 			}
 		}
 
-		public static void HandleClient (TcpClient client) {
+		private static void HandleClient (TcpClient client) {
 
-			Console.WriteLine(
-				"Connection Received: " + 
-				client.Client.RemoteEndPoint.ToString()
-			);
+			// Console.WriteLine(
+			// 	"Connection Received: " +
+			// 	client.Client.RemoteEndPoint.ToString()
+			// );
 
 			byte[] recvData = new byte[4096];
-			client.GetStream().Read(recvData, 0, recvData.Length);
-			string requestInfo = Encoding.ASCII.GetString(recvData);
+			int rbc = client.GetStream().Read(recvData, 0, recvData.Length);
+			byte[] requestRaw = new byte[rbc];
+			Buffer.BlockCopy(recvData, 0, requestRaw, 0, rbc);
+			string requestInfo = Encoding.ASCII.GetString(requestRaw);
 
-			//Console.WriteLine("Read: \n" + requestInfo);
+			// Console.WriteLine("Read: \n" + requestInfo);
 			Analytics.LogClient(
 				client.Client.RemoteEndPoint.ToString().Split(':')[0],
 				requestInfo
@@ -61,16 +68,16 @@ namespace Scads {
 				client.GetStream().Write(sendData, 0, sendData.Length);
 			}
 
-			Console.WriteLine(
-				"Successfully Handled and Dropped: " +
-				client.Client.RemoteEndPoint.ToString()
-			);
+			// Console.WriteLine(
+			// 	"Successfully Handled and Dropped: " +
+			// 	client.Client.RemoteEndPoint.ToString()
+			// );
 
 			client.GetStream().Close();
 			client.Close();
 		}
 
-		public static byte[] GetPageData (string page) {
+		private static byte[] GetPageData (string page) {
 
 			if (page.Contains('?') && page.Contains('&')) {
 
@@ -79,13 +86,13 @@ namespace Scads {
 				page = values[0];
 
 				bool chat = false;
-				if (page == "/chats/chat")
+				if (page.Contains("/chats/"))
 					chat = ProcessChatArgs(page, values[1]);
 
 				if (chat) return Chat.ReadChat(page);
 			}
 
-			Console.WriteLine("Request for: " + page);
+			// Console.WriteLine("Request for: " + page);
 
 			page = page == "/" ? "/home.html" : page;
 
@@ -93,25 +100,25 @@ namespace Scads {
 
 			if (File.Exists(path)) {
 
-				Console.WriteLine("Found!");
+				// Console.WriteLine("Found!");
 
 				return File.ReadAllBytes(path);
 
 			} else {
 
-				Console.WriteLine("Not Found!");
+				// Console.WriteLine("Not Found!");
 
 				return File.ReadAllBytes("pages/404.html");
 			}
 		}
 
-		public static bool ProcessChatArgs (string page, string chatArgs) {
+		private static bool ProcessChatArgs (string page, string chatArgs) {
 
 			Console.WriteLine("Chat Args Read: " + chatArgs);
 
 			if (!chatArgs.Contains('&')) return false;
 			if (!chatArgs.Contains('=')) return false;
-			
+
 			chatArgs = chatArgs.Replace('+', ' ');
 
 			string[] args = chatArgs.Split('&');
@@ -124,7 +131,7 @@ namespace Scads {
 			if (arg2[0] == "message") message = arg2[1]; else return false;
 
 			Chat.Append(page, username, message);
-			
+
 			return true;
 		}
 	}

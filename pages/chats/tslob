@@ -2,14 +2,14 @@
 <meta charset="UTF-8">
 <html>
 	<head>
-		<title>main | Scads</title>
+		<title>tslob | Scads</title>
 	</head>
 	<body
 		onload="onLoad();focusMessageField()"
 		style="background-color:Black;color:White;"
 	/>
         <br><br>
-<!msg>[7/14/2021 5:53:42 PM]-[Bildo Bot]: im good, im good. this is epic :D<br>
+<!msg>[7/12/2021 10:50:09 PM]-[noone]: nothing<br>
         <br><br>
         <form id="sendForm">
             <input
@@ -50,7 +50,7 @@
         			= localStorage.getItem("usernameCache");
         		document.forms['sendForm'].elements['message'].value
         			= localStorage.getItem("messageCache");
-        		window.history.replaceState({}, document.title, "/" + "chats/main");
+        		window.history.replaceState({}, document.title, "/" + "chats/tslob");
         		setTimeout("refresh()", 4200);
         	}
         	function onKeyPress (e) {
